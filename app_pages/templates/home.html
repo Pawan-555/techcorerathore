@@ -1,0 +1,380 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techcore - Modern Tech Website</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #ffffff; /* Poori website ka default text white kiya */
+            
+            /* 🚀 PURE WEBPAGE KE LIYE FIXED BACKGROUND IMAGE */
+            /* linear-gradient se image thodi light ho jayegi aur content saaf dikhega */
+            background: linear-gradient(rgba(10, 10, 26, 0.82), rgba(10, 10, 26, 0.82)), 
+                        url("{% static 'images/nasatech.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Fixed Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.85); /* Semi-transparent navbar */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            backdrop-filter: blur(8px); /* Navbar ke piche blur effect */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00b4d8;
+        }
+
+        /* Scrolling Sections Styling */
+        section {
+            min-height: 100vh;
+            padding: 120px 20px 80px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Light line sections ke beech mein */
+        }
+
+        /* 🌌 GLASSMORPHISM: Saare sections ko halka transparent aur blurry banaya */
+        #about, #articles, #gallery, #faq, #contact {
+            background-color: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(3px); /* Background image iske piche smoothly jhankegi */
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        h1 { font-size: 50px; margin-bottom: 10px; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        h2 { font-size: 40px; color: #00b4d8; margin-bottom: 20px; text-shadow: 0 2px 8px rgba(0,0,0,0.5); } 
+        p { font-size: 18px; max-width: 700px; line-height: 1.6; margin-bottom: 20px; color: #e0e0e0; }
+
+        /* Transparent Image Cards for Gallery */
+        .image-card {
+            background: rgba(20, 20, 35, 0.65); /* Dark semi-transparent card */
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: transform 0.3s, border-color 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+            border-color: #00b4d8;
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.2);
+        }
+
+        .image-card h3 {
+            font-size: 18px;
+            margin: 12px 0 5px 0;
+            color: #ffffff;
+        }
+
+        .btn, .btn-submit {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #00b4d8;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+        }
+
+        .btn:hover, .btn-submit:hover { 
+            background-color: #0077b6;
+            transform: scale(1.03);
+        }
+
+        /* Dynamic Blog Grid Styling */
+        .blog-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .blog-card {
+            background: rgba(20, 20, 35, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: left;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        .blog-card h3 { color: #00b4d8; margin: 10px 0; }
+        .card-meta { font-size: 13px; color: #b0b0b0; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        
+        /* Form & FAQ styling */
+        .form-group { margin-bottom: 20px; width: 100%; max-width: 450px; text-align: left; }
+        .form-group input, .form-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-sizing: border-box;
+            background: rgba(15, 15, 30, 0.8); /* Dark input background */
+            color: #ffffff;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #00b4d8;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 180, 216, 0.5);
+        }
+        
+        /* Form fields text colors fix for Django form fields */
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #aaa;
+        }
+        
+        .faq-list { text-align: left; max-width: 600px; width: 100%; }
+        .faq-item { 
+            background: rgba(20, 20, 35, 0.65); 
+            padding: 15px; 
+            margin-bottom: 12px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .faq-question { font-weight: bold; cursor: pointer; color: #00b4d8; }
+        
+        /* 6-Image Grid System */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px auto 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+
+        /* 4x4 Aspect Ratio Magic */
+        .square-box {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid #00b4d8;
+        }
+
+        .square-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#articles">Articles</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#faq">FAQs</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="home">
+        <h1>Welcome to Techcore</h1>
+        <p>Aapki dynamic, single-page scrolling tech website successfully load ho chuki hai. Background mein aapki space photo chal rahi hai!</p>
+        <a href="#about" class="btn">Explore Karo</a>
+    </section>
+
+    <section id="about">
+        <h2>About Techcore</h2>
+        <p>Hum latest technologies par kaam karte hain aur modern, fast, aur responsive web applications banate hain. Django hamara core backend framework hai jo hamari website ko super secure banata hai.</p>
+        <p>Yahan aapko tech innovations, software development tips, aur humare projects ki jaankari milegi.</p>
+    </section>
+
+    <section id="articles">
+        <h2>Our Latest Tech Articles</h2>
+        <div class="blog-grid">
+            {% for article in articles %}
+            <div class="blog-card">
+                <div class="card-meta">
+                    <span>📁 {{ article.category }}</span>
+                    <span>💬 {{ article.comment_count }} Comments</span>
+                </div>
+                <h3>{{ article.title }}</h3>
+                <p style="font-size: 14px; color: #ccc;">{{ article.published_date }}</p>
+            </div>
+            {% empty %}
+                <p>Filhal koi articles nahi hain.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Our Featured Gallery</h2>
+        <p>Explore our latest tech innovations, space research, and enterprise solutions.</p>
+        
+        <div class="gallery-grid" id="galleryPage1">
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/techearthorbit.jpg' %}" alt="Tech 1">
+                </div>
+                <h3>Earth Orbit</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/aicore.jpg' %}" alt="Tech 2">
+                </div>
+                <h3>AI Core</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/datacenter.jpg' %}" alt="Tech 3">
+                </div>
+                <h3>Data Center</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/quantumcomputing.jpg' %}" alt="Tech 4">
+                </div>
+                <h3>Quantum Computing</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/cybersecurity.jpg' %}" alt="Tech 5">
+                </div>
+                <h3>Cyber Security</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/cloudnetwork.jpg' %}" alt="Tech 6">
+                </div>
+                <h3>Cloud Network</h3>
+            </div>
+        </div>
+
+        <div class="gallery-grid" id="galleryPage2" style="display: none;">
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/robotics .jpg' %}" alt="Tech 7">
+                </div>
+                <h3>Robotics</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/blockchaintech.jpg' %}" alt="Tech 8">
+                </div>
+                <h3>Blockchain Tech</h3>
+            </div>
+            <div class="image-card">
+                <div class="square-box">
+                    <img src="{% static 'images/ar_vrlab.jpg' %}" alt="Tech 9">
+                </div>
+                <h3>AR/VR Lab</h3>
+            </div>
+        </div>
+
+        <div class="gallery-pagination" style="margin-top: 30px;">
+            <button class="btn" id="prevBtn" onclick="changeGalleryPage(1)" style="opacity: 0.5; cursor: not-allowed;" disabled>Previous</button>
+            <button class="btn" id="nextBtn" onclick="changeGalleryPage(2)">Next &rarr;</button>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+            {% for faq in faqs %}
+            <details class="faq-item" {% if forloop.first %}open{% endif %}>
+                <summary class="faq-question">{{ faq.number }}. {{ faq.question }}</summary>
+                <p style="margin-top: 10px; color: #ddd;">{{ faq.answer }}</p>
+            </details>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Schedule A Consultation</h2>
+        <p>Koi naya project banana hai ya koi sawal hai? Form bharein aur humse contact karein!</p>
+        
+        <form method="POST" action="" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">Submit Request</button>
+        </form>
+    </section>
+    
+    <script>
+        function changeGalleryPage(pageNumber) {
+            const page1 = document.getElementById('galleryPage1');
+            const page2 = document.getElementById('galleryPage2');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+
+            if (pageNumber === 2) {
+                page1.style.display = 'none';
+                page2.style.display = 'grid';
+                
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                nextBtn.style.cursor = 'not-allowed';
+                
+                prevBtn.disabled = false;
+                prevBtn.style.opacity = '1';
+                prevBtn.style.cursor = 'pointer';
+            } else {
+                page1.style.display = 'grid';
+                page2.style.display = 'none';
+                
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+                
+                prevBtn.disabled = true;
+                prevBtn.style.opacity = '0.5';
+                prevBtn.style.cursor = 'not-allowed';
+            }
+        }
+    </script>
+
+</body>
+</html>

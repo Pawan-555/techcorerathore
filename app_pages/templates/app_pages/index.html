@@ -1,0 +1,73 @@
+{% extends 'app_pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="grid-overlay"></div>
+    <div class="hero-container">
+        <span class="hero-badge">Next-Gen Digital Transformation</span>
+        <h1>Innovative Technology Solutions for Global Enterprises</h1>
+        <p>Empowering businesses through scalable IT infrastructure, custom software development, and strategic digital consulting to drive.</p>
+        <button class="btn-primary">Explore Our Expertise</button>
+    </div>
+</section>
+
+<section class="section-container">
+    <div class="center-text">
+        <span class="badge">Insights & News</span>
+        <h2 class="section-title">Our Latest Tech Articles</h2>
+    </div>
+
+    <div class="blog-grid">
+        {% for article in articles %}
+        <div class="blog-card">
+            <div class="card-meta">
+                <span>📁 {{ article.category }}</span>
+                <span>💬 {{ article.comment_count }} Comments</span>
+            </div>
+            <h3>{{ article.title }}</h3>
+            <div class="placeholder-img-box">
+                <span>[ Image Space ]</span>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="read-more">READ MORE</a>
+                <span class="date">📅 {{ article.published_date }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section-container bg-white form-wrapper">
+    <div class="center-text">
+        <span class="badge">Get In Touch</span>
+        <h2 class="section-title">Schedule A Consultation</h2>
+    </div>
+    
+    <form method="POST" action="" class="consult-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn-submit">Submit Request</button>
+    </form>
+</section>
+
+<section class="section-container">
+    <div class="center-text">
+        <span class="badge">Expert Answers</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-list">
+        {% for faq in faqs %}
+        <details class="faq-item" {% if forloop.first %}open{% endif %}>
+            <summary class="faq-question">{{ faq.number }}. {{ faq.question }}</summary>
+            <p class="faq-answer">{{ faq.answer }}</p>
+        </details>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

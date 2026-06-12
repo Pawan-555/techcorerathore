@@ -1,0 +1,14 @@
+<div class="consultation-section">
+    <span class="badge">Get In Touch</span>
+    <h2>Schedule A Consultation</h2>
+    
+    <form method="POST" action="">
+        {% csrf_block %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn-submit">Submit Request</button>
+    </form>
+</div>
