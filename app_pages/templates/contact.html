@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Discovery Session | Techcore</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-blue: #00bcd4;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0b0f19 80%);
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 188, 212, 0.1);
+            width: 100%;
+            max-width: 550px;
+            border: 1px solid #1f2937;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            background-color: #070a12;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 188, 212, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00bcd4 0%, #00838f 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 188, 212, 0.5);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Ready to Build Something Extraordinary?</h2>
+        <div class="subtitle">Fill out the details below, and our engineering team will connect with you shortly.</div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Full Name / Company Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe / NexaCorp" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Work Email</label>
+                <input type="email" id="email" name="email" placeholder="john@company.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="details">Project Briefing & Requirements</label>
+                <textarea id="details" name="details" placeholder="Tell us about the application or infrastructure you want to build..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Briefing Details</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="back-link">← Return to Homepage</a>
+    </div>
+
+</body>
+</html>

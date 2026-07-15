@@ -217,19 +217,22 @@
     </nav>
 
     <section id="home">
-        <h1>Welcome to Techcore</h1>
-        <p>Aapki dynamic, single-page scrolling tech website successfully load ho chuki hai. Background mein aapki space photo chal rahi hai!</p>
-        <a href="#about" class="btn">Explore Karo</a>
+        <h1>Welcome</h1>
+        <p>Transforming Ideas Into Powerful Digital Solutions</p>
+        <p>We build custom, high-performance software and responsive websites tailored to your business needs. From initial concept to deployment, our team ensures your digital presence is secure, scalable, and built for growth.</p>
+        <a href="{% url 'contact_page' %}" class="btn-submit" style="text-decoration: none; display: inline-block; text-align: center;">Request Discovery Session</a>        </form>
     </section>
 
     <section id="about">
-        <h2>About Techcore</h2>
-        <p>Hum latest technologies par kaam karte hain aur modern, fast, aur responsive web applications banate hain. Django hamara core backend framework hai jo hamari website ko super secure banata hai.</p>
-        <p>Yahan aapko tech innovations, software development tips, aur humare projects ki jaankari milegi.</p>
+        <h2>About Our Expertise</h2>
+        <h3>why partner with us?</h3>
+        <p>With years of collective experience under our belt, we don't just write code,we solve complex business problems. Having successfully delivered dozens of custom websites and robust software applications, we understand what it takes to build products that are fast, secure, and intuitive.</p>
+        <p>We leverage powerful backend languages like Python alongside modern frameworks like Django for ultra-secure architectures, combining them with cutting-edge front-end technologies to ensure your project stands out in today's competitive digital landscape.</p>
     </section>
 
     <section id="articles">
-        <h2>Our Latest Tech Articles</h2>
+        <h2>Client Reviews & Experience</h2>
+        <h3>What Our Clients Say</h3>
         <div class="blog-grid">
             {% for article in articles %}
             <div class="blog-card">
@@ -239,6 +242,8 @@
                 </div>
                 <h3>{{ article.title }}</h3>
                 <p style="font-size: 14px; color: #ccc;">{{ article.published_date }}</p>
+                <p style="font-size: 13px;font-style: italic; color: #ccc;">{{ article.paragraph|linebreaksbr }}</p>
+
             </div>
             {% empty %}
                 <p>Filhal koi articles nahi hain.</p>
@@ -247,45 +252,45 @@
     </section>
 
     <section id="gallery">
-        <h2>Our Featured Gallery</h2>
-        <p>Explore our latest tech innovations, space research, and enterprise solutions.</p>
+        <h2>Innovation Showcase</h2>
+        <p>Exploring our latest advancements across custom engineering, space logistics, and enterprise intelligence.</p>
         
         <div class="gallery-grid" id="galleryPage1">
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/techearthorbit.jpg' %}" alt="Tech 1">
                 </div>
-                <h3>Earth Orbit</h3>
+                <h3>Satellite & Aerospace Logistics</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/aicore.jpg' %}" alt="Tech 2">
                 </div>
-                <h3>AI Core</h3>
+                <h3>Advanced Neural Networks</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/datacenter.jpg' %}" alt="Tech 3">
                 </div>
-                <h3>Data Center</h3>
+                <h3>Enterprise Infrastructure</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/quantumcomputing.jpg' %}" alt="Tech 4">
                 </div>
-                <h3>Quantum Computing</h3>
+                <h3>Quantum Architecture</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/cybersecurity.jpg' %}" alt="Tech 5">
                 </div>
-                <h3>Cyber Security</h3>
+                <h3>Zero-Trust Security </h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/cloudnetwork.jpg' %}" alt="Tech 6">
                 </div>
-                <h3>Cloud Network</h3>
+                <h3>Hybrid Cloud Ecosystems</h3>
             </div>
         </div>
 
@@ -294,19 +299,19 @@
                 <div class="square-box">
                     <img src="{% static 'images/robotics .jpg' %}" alt="Tech 7">
                 </div>
-                <h3>Robotics</h3>
+                <h3>Autonomous Systems</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/blockchaintech.jpg' %}" alt="Tech 8">
                 </div>
-                <h3>Blockchain Tech</h3>
+                <h3>Decentralized Ledgers</h3>
             </div>
             <div class="image-card">
                 <div class="square-box">
                     <img src="{% static 'images/ar_vrlab.jpg' %}" alt="Tech 9">
                 </div>
-                <h3>AR/VR Lab</h3>
+                <h3>Immersive Realities</h3>
             </div>
         </div>
 
@@ -317,7 +322,8 @@
     </section>
 
     <section id="faq">
-        <h2>Frequently Asked Questions</h2>
+        <h2>Client Resources & FAQ</h2>
+        <p style="font-size: 18px;font-family:'Times New Roman', Times, serif;">have questions? Find quick answers about our engineering process, deployment, and custom solutions here.</p>
         <div class="faq-list">
             {% for faq in faqs %}
             <details class="faq-item" {% if forloop.first %}open{% endif %}>
@@ -329,8 +335,8 @@
     </section>
 
     <section id="contact">
-        <h2>Schedule A Consultation</h2>
-        <p>Koi naya project banana hai ya koi sawal hai? Form bharein aur humse contact karein!</p>
+        <h2>Ready to Build Something Extraordinary?</h2>
+        <p>Have a vision for a new project or looking for expert guidance? Fill out the form below, and our engineering team will connect with you shortly.</p>
         
         <form method="POST" action="" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             {% csrf_token %}
@@ -339,8 +345,7 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            <button type="submit" class="btn-submit">Submit Request</button>
-        </form>
+        <a href="{% url 'contact_page' %}" class="btn-submit" style="text-decoration: none; display: inline-block; text-align: center;">Request Discovery Session</a>        </form>
     </section>
     
     <script>

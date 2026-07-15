@@ -37,3 +37,13 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+    
+#4. contact inquiry
+class ContactInquiry(models.Model):
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    project_briefing = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)  # Inquiry कब आई, यह रिकॉर्ड करने के लिए
+
+    def __str__(self):
+        return f"{self.full_name} - {self.email}"
