@@ -1,3 +1,9 @@
+import os
+import sys
+
+# Forces Python to look into the root directory for modules
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from app_pages.models import ContactInquiry
