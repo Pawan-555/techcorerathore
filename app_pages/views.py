@@ -1,6 +1,26 @@
 import os
 import sys
 
+# 1. Dynamically find the absolute path of your 'techcorerathore' root folder
+# This calculates the parent folder of 'app_pages'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 2. Add the root directory to Python's system paths
+if BASE_DIR not in sys.path:
+    sys.path.append(BASE_DIR)
+
+# 3. Tell Django where your settings file is located.
+# IMPORTANT: Replace 'techcorerathore' below with the actual name of 
+# the subfolder where your settings.py is located if it is named differently.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "techcorerathore.settings")
+
+# 4. Initialize Django so you can use Django models outside of a standard django runserver
+import django
+django.setup()
+
+# 5. Now, you can safely perform your imports!
+from app_pages.models import ContactInquiry
+
 # Forces Python to look into the root directory for modules
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
