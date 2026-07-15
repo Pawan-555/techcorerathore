@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import ContactInquiry
+from app_pages.models import ContactInquiry
 
 def home_view(request):
     context = {
